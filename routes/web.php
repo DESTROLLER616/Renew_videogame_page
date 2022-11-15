@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdministrationController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ClassificationController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ConsoleController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\GenderController;
 use App\Http\Controllers\Order_MController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\StateController;
 use App\Http\Controllers\StatusController;
@@ -153,6 +155,8 @@ Route::resource('videogame', VideogameController::class);
 Route::resource('client', ClientController::class);
 Route::resource('administration', AdministrationController::class);
 Route::resource('employee', EmployerController::class);
+Route::resource('product', ProductController::class);
+Route::resource('order', CartController::class);
 
 Auth::routes();
 
