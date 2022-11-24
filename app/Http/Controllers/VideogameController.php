@@ -11,6 +11,7 @@ use App\Models\Status;
 use App\Models\Videogame;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 
 class VideogameController extends Controller
 {
@@ -20,29 +21,29 @@ class VideogameController extends Controller
     }
 
     public function store(Request $request){
-        $videogame = new Videogame();
+        // $videogame = new Videogame();
 
-        $videogame -> nombre = strtoupper($request -> nombre);
-        $videogame -> desarrolladora = strtoupper($request -> desarrolladora);
-        $videogame -> publicadora = strtoupper($request -> publicadora);
-        $videogame -> fecha_estreno = $request -> fecha_estreno;
-        $videogame -> descripcion = strtoupper($request -> descripcion);
-        $videogame -> codigo = strtoupper($request -> codigo);
-        $videogame -> stock = $request -> stock;
-        $videogame -> precio = $request -> precio;
-        $videogame -> id_clasificacion = $request -> clasificacion;
-        $videogame -> id_region = $request -> region;
-        $videogame -> id_genero = $request -> genero;
-        $videogame -> id_consola = $request -> consola;
+        // $videogame -> nombre = strtoupper($request -> nombre);
+        // $videogame -> desarrolladora = strtoupper($request -> desarrolladora);
+        // $videogame -> publicadora = strtoupper($request -> publicadora);
+        // $videogame -> fecha_estreno = $request -> fecha_estreno;
+        // $videogame -> descripcion = strtoupper($request -> descripcion);
+        // $videogame -> codigo = strtoupper($request -> codigo);
+        // $videogame -> stock = $request -> stock;
+        // $videogame -> precio = $request -> precio;
+        // $videogame -> id_clasificacion = $request -> clasificacion;
+        // $videogame -> id_region = $request -> region;
+        // $videogame -> id_genero = $request -> genero;
+        // $videogame -> id_consola = $request -> consola;
 
-        if ($image = $request->file('image')) {
-            $destinationPath = 'img/videojuego/';
-            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
-            $videogame -> image = "$profileImage";
-        }
+        // if ($image = $request->file('image')) {
+        //     $destinationPath = 'img/videojuego/';
+        //     $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+        //     $image->move($destinationPath, $profileImage);
+        //     $videogame -> image = "$profileImage";
+        // }
 
-        $videogame -> save();
+        // $videogame -> save();
 
         // return view('crud.videogames.show') -> with('videogames', DB::table('videogames')
         // -> join('classifications', 'videogames.id_clasificacion', '=', 'classifications.id')
@@ -51,7 +52,51 @@ class VideogameController extends Controller
         // -> join('consoles', 'videogames.id_consola', '=', 'consoles.id')
         // -> select('videogames.*', 'classification.nombre_clasificacion', 'regions.nombre_region', 'genders.nombre_genero', 'consoles.nombre_consola') -> get());
 
-        return redirect() -> route('videogame.show', $videogame);
+        // return redirect() -> route('videogame.show', $videogame);
+
+        $image = null;
+
+        $url = "http://localhost/api/public/api/videojuegos";
+
+        if ($image = $request->file('image')) {
+            $destinationPath = 'img/videojuegos/';
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $profileImage);
+            $image = "$profileImage";
+        }
+
+        $response = Http::post($url, [
+            'nombre' => $request -> nombre,
+            'desarrolladora' => $request -> desarrolladora,
+            'publicadora' => $request -> publicadora,
+            'fecha_estreno' => $request -> fecha_estreno,
+            'descripcion' => $request -> descripcion,
+            'codigo' => $request -> codigo,
+            'stock' => $request -> stock,
+            'precio' => $request -> precio,
+            'id_clasificacion' => $request -> clasificacion,
+            'id_region' => $request -> region,
+            'id_genero' => $request -> genero,
+            'id_consola' => $request -> consola,
+            'image' => $request -> image,
+        ]);
+
+        $respuesta = json_decode($response -> getBody());
+
+        $url = 'http://localhost/api/public/api/videojuegos';
+
+        $response = Http::get($url);
+
+        $listado = json_decode($response -> getBody());
+
+        $videogames = $listado;
+
+        return view('crud.videogames.show') -> with('videogames', DB::table('videogames')
+        -> join('classifications', 'videogames.id_clasificacion', '=', 'classifications.id')
+        -> join('regions', 'videogames.id_region', '=', 'regions.id')
+        -> join('genders', 'videogames.id_genero', '=', 'genders.id')
+        -> join('consoles', 'videogames.id_consola', '=', 'consoles.id')
+        -> select('videogames.*', 'classifications.nombre_clasificacion', 'regions.nombre_region', 'genders.nombre_genero', 'consoles.nombre_consola') -> get());
     }
 
     public function index(){
@@ -67,6 +112,16 @@ class VideogameController extends Controller
     }
 
     public function show(){
+        $url = 'http://localhost/api/public/api/videojuegos';
+
+        $response = Http::get($url);
+
+        $responseBody = json_decode($response -> getBody());
+
+        //dd($responseBody);
+
+        $videogames = $responseBody;
+
         return view('crud.videogames.show') -> with('videogames', DB::table('videogames')
         -> join('classifications', 'videogames.id_clasificacion', '=', 'classifications.id')
         -> join('regions', 'videogames.id_region', '=', 'regions.id')
@@ -103,10 +158,27 @@ class VideogameController extends Controller
     }
 
     public function destroy($id){
-        $videogame = Videogame::find($id);
+        $url = "http://localhost/api/public/api/videojuegos/".$id;
 
-        $videogame -> delete();
+        $response = Http::post($url, [
+            '_method' => 'DELETE',
+        ]);
 
-        return redirect() -> route('videogame.show', $videogame);
+        $respuesta = json_decode($response->getBody());
+
+        $url = "http://localhost/api/public/api/videojuegos"; 
+
+        $response = Http::get($url);
+
+        $listado = json_decode($response->getBody());
+
+        $videogames = $listado;
+
+        return view('crud.videogames.show') -> with('videogames', DB::table('videogames')
+        -> join('classifications', 'videogames.id_clasificacion', '=', 'classifications.id')
+        -> join('regions', 'videogames.id_region', '=', 'regions.id')
+        -> join('genders', 'videogames.id_genero', '=', 'genders.id')
+        -> join('consoles', 'videogames.id_consola', '=', 'consoles.id')
+        -> select('videogames.*', 'classifications.nombre_clasificacion', 'regions.nombre_region', 'genders.nombre_genero', 'consoles.nombre_consola') -> get());
     }
 }

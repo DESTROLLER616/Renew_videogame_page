@@ -10,7 +10,7 @@
   
     <div class="col-md-4">
       <label for="validationCustom01" class="form-label">Nombre</label>
-      <input type="text" class="form-control" id="validationCustom01" value="{{ $employer->name }}" name="nombre" required>
+      <input type="text" class="form-control" id="validationCustom01" value="{{ $employer->name }}" name="nombre">
       <div class="valid-feedback">
         Looks good!
       </div>
@@ -18,7 +18,7 @@
   
     <div class="col-md-4">
       <label for="validationCustom01" class="form-label">Apellido paterno</label>
-      <input type="text" class="form-control" id="validationCustom01" value="{{ $employer->apellido_p }}" name="apellido_p" required>
+      <input type="text" class="form-control" id="validationCustom01" value="{{ $employer->apellido_p }}" name="apellido_p">
       <div class="valid-feedback">
         Looks good!
       </div>
@@ -26,7 +26,7 @@
   
     <div class="col-md-4">
       <label for="validationCustom01" class="form-label">Apellido materno</label>
-      <input type="text" class="form-control" id="validationCustom01" value="{{ $employer->apellido_m }}" name="apellido_m" required>
+      <input type="text" class="form-control" id="validationCustom01" value="{{ $employer->apellido_m }}" name="apellido_m">
       <div class="valid-feedback">
         Looks good!
       </div>
@@ -34,7 +34,7 @@
   
     <div class="col-md-4">
       <label for="validationCustom01" class="form-label">Dirección</label>
-      <input type="text" class="form-control" id="validationCustom01" value="{{ $employer->direction }}" name="direccion" required>
+      <input type="text" class="form-control" id="validationCustom01" value="{{ $employer->direction }}" name="direccion">
       <div class="valid-feedback">
         Looks good!
       </div>
@@ -42,7 +42,7 @@
   
     <div class="col-md-4">
       <label for="validationCustom01" class="form-label">Código postal</label>
-      <input type="number" class="form-control" id="validationCustom01" value="{{ $employer->postcode }}" name="codigo_postal" required>
+      <input type="number" class="form-control" id="validationCustom01" value="{{ $employer->postcode }}" name="codigo_postal">
       <div class="valid-feedback">
         Looks good!
       </div>
@@ -50,7 +50,7 @@
   
     <div class="col-md-4">
       <label for="validationCustom01" class="form-label">Numero de telefono</label>
-      <input type="tel" class="form-control" id="validationCustom01" value="{{ $employer->number_phone }}" name="telefono" required>
+      <input type="tel" class="form-control" id="validationCustom01" value="{{ $employer->number_phone }}" name="telefono">
       <div class="valid-feedback">
         Looks good!
       </div>
@@ -58,7 +58,7 @@
   
     <div class="col-md-4">
       <label for="validationCustom01" class="form-label">Salario</label>
-      <input type="number" class="form-control" id="validationCustom01" value="{{ $employer->salario }}" name="salario" required>
+      <input type="number" class="form-control" id="validationCustom01" value="{{ $employer->salario }}" name="salario">
       <div class="valid-feedback">
         Looks good!
       </div>
@@ -66,7 +66,7 @@
 
     <div class="col-md-4">
       <label for="validationCustom01" class="form-label">Fecha de contratacion</label>
-      <input type="date" class="form-control" id="validationCustom01" value="{{ $employer->fecha_contratacion }}" name="contratacion" required>
+      <input type="date" class="form-control" id="validationCustom01" value="{{ $employer->fecha_contratacion }}" name="contratacion">
       <div class="valid-feedback">
         Looks good!
       </div>
@@ -100,7 +100,7 @@
   
     <div class="col-md-4">
       <label for="validationCustom01" class="form-label">Correo electronico</label>
-      <input type="email" class="form-control" id="validationCustom01" value="{{ $employer->email }}" name="email" required>
+      <input type="email" class="form-control" id="validationCustom01" value="{{ $employer->email }}" name="email">
       <div class="valid-feedback">
         Looks good!
       </div>
@@ -108,7 +108,7 @@
   
     <div class="col-md-4">
       <label for="validationCustom01" class="form-label">Contraseña</label>
-      <input type="password" class="form-control" id="validationCustom01" value="{{ $employer->password }}" name="contraseña" required>
+      <input type="password" class="form-control" id="validationCustom01" value="{{ $employer->password }}" name="contraseña">
       <div class="valid-feedback">
         Looks good!
       </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Gender;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class GenderController extends Controller
 {
@@ -14,11 +15,29 @@ class GenderController extends Controller
     }
 
     public function store(Request $request){
-        $gender = new Gender();
+        // $gender = new Gender();
 
-        $gender -> nombre_genero = strtoupper($request -> nombre);
+        // $gender -> nombre_genero = strtoupper($request -> nombre);
 
-        $gender -> save();
+        // $gender -> save();
+
+        // return view('crud.gender.show') -> with('genders', Gender::all()) -> with('mensaje', 'genero correctamente creado');
+
+        $url = "http://localhost/api/public/api/generos";
+
+        $response = Http::post($url, [
+            'nombre' => $request -> nombre
+        ]);
+
+        $responseBody = json_decode($response -> getBody());
+
+        $url = "http://localhost/api/public/api/generos";
+
+        $response = Http::get($url);
+
+        $responseBody = json_decode($response -> getBody());
+
+        $genders = $responseBody;
 
         return view('crud.gender.show') -> with('genders', Gender::all()) -> with('mensaje', 'genero correctamente creado');
     }
@@ -32,7 +51,15 @@ class GenderController extends Controller
     }
 
     public function show(){
-        return view('crud.gender.show')->with('genders', Gender::all());
+        $url = "http://localhost/api/public/api/generos";
+
+        $response = Http::get($url);
+
+        $responseBody = json_decode($response -> getBody());
+
+        $genders = $responseBody;
+
+        return view('crud.gender.show') -> with('genders', Gender::all()) -> with('mensaje', 'genero correctamente creado');
     }
 
     public function update(){

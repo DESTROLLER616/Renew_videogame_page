@@ -31,14 +31,6 @@
         </div>
     </div>
 
-    <div class="col-md-4">
-        <label for="validationCustom01" class="form-label">Fecha de estreno</label>
-        <input type="date" class="form-control" id="validationCustom01" name="fecha_estreno" required>
-        <div class="valid-feedback">
-          Looks good!
-        </div>
-    </div>
-
     <div class="mb-3">
         <label for="exampleFormControlTextarea1" class="form-label">Descripción</label>
         <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" maxlength="255" name="descripcion"></textarea>
@@ -54,7 +46,7 @@
 
     <div class="col-md-4">
         <label for="validationCustom01" class="form-label">Fecha de estreno</label>
-        <input type="date" class="form-control" id="validationCustom01" name="stock" required>
+        <input type="date" class="form-control" id="validationCustom01" name="fecha_estreno" required>
         <div class="valid-feedback">
           Looks good!
         </div>
@@ -129,7 +121,7 @@
     </div>
 
     <div class="mb-3">
-      <label for="formFile" class="form-label">Default file input example</label>
+      <label for="formFile" class="form-label">Imagen del videojuego</label>
       <input class="form-control" type="file" id="formFile" name="image">
     </div>
 

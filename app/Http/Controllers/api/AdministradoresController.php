@@ -42,6 +42,7 @@ class AdministradoresController extends Controller
         $administrator -> id_state = $request -> id_state;
         $administrator -> email = $request -> email;
         $administrator -> password = $request -> password;
+        $administrator -> image = $request -> image;
         $administrator -> id_status = 1;
         $administrator -> id_type_user = 3;
 

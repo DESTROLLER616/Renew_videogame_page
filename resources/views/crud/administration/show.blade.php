@@ -35,7 +35,7 @@
     @if($administration -> tipo_empleado == 'ADMINISTRADOR')
     <tbody>
       <td>{{ $administration -> id }}</td>
-      <td><img src="{{asset('img/administracion').'/'.$administration -> image}}" width="100px" height="60px"></td>
+      <td><img src="{{asset('img/administrador').'/'.$administration -> image}}" width="100px" height="60px"></td>
       <td>{{ $administration -> name }}</td>
       <td>{{ $administration -> apellido_p }}</td>
       <td>{{ $administration -> apellido_m }}</td>

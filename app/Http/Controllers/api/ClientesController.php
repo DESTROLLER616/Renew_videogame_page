@@ -8,6 +8,8 @@ use App\Models\State;
 use App\Models\Status;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 
 class ClientesController extends Controller
 {
@@ -18,7 +20,7 @@ class ClientesController extends Controller
      */
     public function index()
     {
-        $client = User::all() -> where('id_type_user', 2);
+        $client = User::all();
 
         return $client -> toJson();
     }
@@ -42,6 +44,7 @@ class ClientesController extends Controller
         $client -> saldo = $request -> saldo;
         $client -> id_state = $request -> estado;
         $client -> email = $request -> email;
+        $client -> image = $request -> image;
         $client -> password = $request -> contraseña;
         $client -> id_status = 1;
         $client -> id_type_user = 2;
@@ -85,7 +88,7 @@ class ClientesController extends Controller
         $client -> id_state = $request -> estado;
         $client -> email = $request -> email;
         $client -> password = $request -> contraseña;
-        $client -> id_status = $request -> estatus;
+        $client -> id_status = $request -> status;
         
         $client -> save();
 

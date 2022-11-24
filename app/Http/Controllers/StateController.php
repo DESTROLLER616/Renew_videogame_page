@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\State;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class StateController extends Controller
 {
@@ -14,11 +15,29 @@ class StateController extends Controller
     }
 
     public function store(Request $request){
-        $state = new State();
+        // $state = new State();
 
-        $state -> nombre_estado = strtoupper($request -> nombre);
+        // $state -> nombre_estado = strtoupper($request -> nombre);
 
-        $state -> save();
+        // $state -> save();
+
+        // return view('crud.state.show')->with('states', State::all()) -> with('mensaje', 'Estado creado correctamente');
+
+        $url = 'http://localhost/api/public/api/estados';
+
+        $response = Http::post($url, [
+            'nombre' => $request -> nombre
+        ]);
+
+        $responseBody = json_decode($response -> getBody());
+
+        $url = 'http://localhost/api/public/api/estados';
+
+        $response = Http::get($url);
+
+        $responseBody = json_decode($response -> getBody());
+
+        $states = $responseBody;
 
         return view('crud.state.show')->with('states', State::all()) -> with('mensaje', 'Estado creado correctamente');
     }
@@ -32,7 +51,15 @@ class StateController extends Controller
     }
 
     public function show(){
-        return view('crud.state.show')->with('states', State::all());
+        $url = 'http://localhost/api/public/api/estados';
+
+        $response = Http::get($url);
+
+        $responseBody = json_decode($response -> getBody());
+
+        $states = $responseBody;
+
+        return view('crud.state.show')->with('states', State::all()) -> with('mensaje', 'Estado creado correctamente');
     }
 
     public function update(){

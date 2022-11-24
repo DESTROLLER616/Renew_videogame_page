@@ -37,11 +37,12 @@ class EmpleadoController extends Controller
         $employeer -> direction = $request -> direccion;
         $employeer -> postcode = $request -> codigo_postal;
         $employeer -> number_phone = $request -> telefono;
-        $employeer -> salario = $request -> saldo;
+        $employeer -> salario = $request -> salario;
         $employeer -> fecha_contratacion = $request -> contratacion;
         $employeer -> id_state = $request -> estado;
         $employeer -> email = $request -> email;
         $employeer -> password = $request -> contraseña;
+        $employeer -> image = $request -> image;
         $employeer -> id_status = 1;
         $employeer -> id_type_user = 1;
 
