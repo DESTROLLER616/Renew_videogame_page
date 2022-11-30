@@ -7,16 +7,19 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ConsoleController;
 use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\GenderController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Order_MController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegionController;
+use App\Http\Controllers\SessionController;
 use App\Http\Controllers\StateController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\Type_employeeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VideogameController;
 use App\Models\Classification;
+use App\Models\State;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -49,8 +52,18 @@ Route::view('playstation5','playstation5')->name('playstation5');
 Route::view('nitendo','nitendo')->name('nitendo');
 Route::view('consolas','consolas')->name('consolas');
 
+Route::post('session', [SessionController::class], 'login');
 
 
+Route::get('/editar', function(){
+    return view('editar') -> with('states', State::all());
+});
+
+Route::get('/admin', function(){
+    return view('administracion');
+});
+
+Route::post('/usuario/editar', [SessionController::class, 'editar']);
 
 //**!Ruta de los controladores, NO MOVER ESTO Y SIEMPRE DEBE DE ESTAR HASTA ABAJO DE TODO ESTE DOCUMENTO
 //**TODO: Creacion de rutas para el CRUD de la pagina
@@ -155,9 +168,17 @@ Route::resource('videogame', VideogameController::class);
 Route::resource('client', ClientController::class);
 Route::resource('administration', AdministrationController::class);
 Route::resource('employee', EmployerController::class);
-Route::resource('product', ProductController::class);
+// Route::resource('product', ProductController::class);
 Route::resource('order', CartController::class);
 
-Auth::routes();
+Route::get('/shop', [CartController::class, 'shop'])->name('shop');
+Route::get('/cart', [CartController::class, 'cart'])->name('cart.index');
+Route::post('/add', [CartController::class, 'add'])->name('cart.store');
+Route::post('/update', [CartController::class, 'update'])->name('cart.update');
+Route::post('/remove', [CartController::class, 'remove'])->name('cart.remove');
+Route::post('/clear', [CartController::class, 'clear'])->name('cart.clear');
+
+Route::post('/initsession', [LoginController::class, 'login']);
+
 
 Auth::routes();

@@ -11,6 +11,8 @@ use App\Http\Controllers\api\GenerosController;
 use App\Http\Controllers\api\RegionesController;
 use App\Http\Controllers\api\Tipo_empleoController;
 use App\Http\Controllers\api\VideojuegosController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\VideogameController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,8 +27,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('session', [SessionController::class], 'login');
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::post('register', [AuthController::class, 'register']);
+
+Route::post('login', [AuthController::class, 'login']);
+
+Route::middleware(['auth:sanctum'])->group(function(){
+    Route::put('update', [AuthController::class, 'update']);
+    Route::delete('delete', [AuthController::class, 'delete']);
+    Route::get('videogames', [VideojuegosController::class, 'index']);
+    Route::post('store', [VideojuegosController::class, 'store']);
+    Route::put('updatev', [VideogameController::class, 'update']);
+    Route::delete('destroy', [VideogameController::class, 'destroy']);
 });
 
 Route::apiResource('clientes', ClientesController::class);

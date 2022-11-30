@@ -68,6 +68,8 @@
                                 </button>
                             </div>
                         </div>
+
+                        <input type="hidden" name="id_type_user" value="2">
                     </form>
                 </div>
             </div>

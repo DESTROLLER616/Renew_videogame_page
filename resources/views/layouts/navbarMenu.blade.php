@@ -15,32 +15,37 @@
         <div class="container-fluid">
           <a class="navbar-brand" href="{{route('videojuego')}}">INICIO</a>
           <a class="navbar-brand" href="{{route('nosotros')}}">SOBRE NOSOTROS</a>
+          <a class="navbar-brand" href="{{url('shop')}}">Tienda</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="{{route('consolas')}}" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  JUEGOS POR CONSOLAS 
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="{{route('playstation4')}}">PLAY STATION 4</a></li>
-                  <li><a class="dropdown-item" href="{{route('playstation5')}}">PLAY STATION 5</a></li>
-                  <li><a class="dropdown-item" href="{{route('xbox')}}">XBOX SERIES X</a></li>
-                  <li><a class="dropdown-item" href="{{route('nitendo')}}">NITENDO SWITCH</a></li>
-                </ul>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#" tabindex="-1" aria-disabled="false">REGISTRO CLIENTE</a>
+                @if (!(auth() -> check()))
+                  <a class="nav-link" href="#" tabindex="-1" aria-disabled="false">REGISTRO CLIENTE</a>
+                @endif
               </li>
             </ul>
           </div>
         </div>
 
-        <div class="d-flex">
-          <a href="">Inicio de sesión</a>
-        </div>
+        @if (auth() -> check())
+
+          @if(auth() -> user() -> id_type_user == 2)
+            <a href="{{url('/editar')}}" title="Editar cliente">bienvenido {{auth() -> user() -> name}} {{auth() -> user() -> apellido_p}}</a>
+          @else
+            <a href="{{url('/admin')}}" title="Menu exclusivo">bienvenido {{auth() -> user() -> name}} {{auth() -> user() -> apellido_p}}</a>
+          @endif
+            
+        @else
+          <div class="d-flex">
+            <a href="{{route('login')}}">Inicio de sesión</a>
+          </div>
+
+        @endif
       </nav>
 
       <center><h1>@yield('main-title')</h1></center>

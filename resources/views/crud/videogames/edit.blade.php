@@ -122,8 +122,8 @@
   </div>
 
   <div class="col-12">
-      <button class="btn btn-primary" type="submit">Crear</button>
-    </div>
+      <button class="btn btn-primary" type="submit">Editar</button>
+  </div>
 </form>
 
 <form action="{{ url('videogame/'.$videogame->id.'') }}" method="POST">
